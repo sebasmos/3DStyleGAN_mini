@@ -1,0 +1,12 @@
+__pycache__
+sbatch/*
+._*
+.DS_Store
+tests_3d.ipynb
+data/
+**/*.tif
+**/*.tfrecords
+*.tif
+*.tfrecord
+**/*.tif
+**/*.tfrecord

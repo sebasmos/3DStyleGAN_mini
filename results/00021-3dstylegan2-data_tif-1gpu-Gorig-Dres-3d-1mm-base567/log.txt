@@ -1,0 +1,235 @@
+dnnlib: Running training.training_loop_3d.training_loop() on localhost...
+WARNING:tensorflow:From /n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+CUDA CASHE PATH
+/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/_cudacache
+Streaming data using training.dataset.TFRecordDataset...
+(1, 5, 6, 7)
+(1, 10, 12, 14)
+(1, 20, 24, 28)
+(1, 40, 48, 56)
+(1, 80, 96, 112)
+(1, 160, 192, 224)
+=================================================
+ Dataset Repeated
+=================================================
+=================================================
+ Dataset Repeated
+=================================================
+=================================================
+ Dataset Repeated
+=================================================
+=================================================
+ Dataset Repeated
+=================================================
+=================================================
+ Dataset Repeated
+=================================================
+=================================================
+ Dataset Repeated
+=================================================
+Dataset shape = [1, 160, 192, 224]
+Dynamic range = [0, 1.0]
+Label size    = 0
+Initialize data arrays
+Random LayOut
+tf_minibatch_np : None - Using get_minibatch_tf
+(<tf.Tensor 'Dataset_1/IteratorGetNext:0' shape=(?, ?, ?, ?, ?) dtype=float16>, <tf.Tensor 'Dataset_1/IteratorGetNext:1' shape=(?, 0) dtype=float32>)
+Class Conditional LayOut
+160
+Constructing networks...
+=================================
+G_Synthesis
+dlatent_size
+96
+fmap_min
+18
+fmap_max
+18
+base_size
+[5, 6, 7]
+=================================
+Setting up TensorFlow plugin "fused_bias_act.cu": Preprocessing... device_lib
+[name: "/device:CPU:0"
+device_type: "CPU"
+memory_limit: 268435456
+locality {
+}
+incarnation: 932202199890256685
+, name: "/device:GPU:0"
+device_type: "GPU"
+memory_limit: 79390162432
+locality {
+  bus_id: 2
+  numa_node: 1
+  links {
+  }
+}
+incarnation: 5610655457853865496
+physical_device_desc: "device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:ca:00.0, compute capability: 8.0"
+]
+TF GPU
+/device:GPU:0
+Compiling... Loading... Done.
+Traceback (most recent call last):
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/client/session.py", line 1375, in _do_call
+    return fn(*args)
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/client/session.py", line 1359, in _run_fn
+    return self._call_tf_sessionrun(options, feed_dict, fetch_list,
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/client/session.py", line 1451, in _call_tf_sessionrun
+    return tf_session.TF_SessionRun_wrapper(self._session, options, feed_dict,
+tensorflow.python.framework.errors_impl.InvalidArgumentError: Cannot assign a device for operation G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal: Could not satisfy explicit device specification '' because the node {{colocation_node G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal}} was colocated with a group of nodes that required incompatible device '/device:GPU:0'. All available devices [/job:localhost/replica:0/task:0/device:CPU:0]. 
+Colocation Debug Info:
+Colocation group had the following types and supported devices: 
+Root Member(assigned_device_name_index_=-1 requested_device_name_='/device:GPU:0' assigned_device_name_='' resource_device_name_='/device:GPU:0' supported_device_types_=[CPU] possible_devices_=[]
+Assign: CPU 
+Mul: CPU 
+Const: CPU 
+VariableV2: CPU 
+Add: CPU 
+RandomStandardNormal: CPU 
+
+Colocation members, user-requested devices, and framework assigned devices, if any:
+  G_synthesis/noise0/Initializer/random_normal/shape (Const) 
+  G_synthesis/noise0/Initializer/random_normal/mean (Const) 
+  G_synthesis/noise0/Initializer/random_normal/stddev (Const) 
+  G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal (RandomStandardNormal) 
+  G_synthesis/noise0/Initializer/random_normal/mul (Mul) 
+  G_synthesis/noise0/Initializer/random_normal (Add) 
+  G_synthesis/noise0 (VariableV2) /device:GPU:0
+  G_synthesis/noise0/Assign (Assign) /device:GPU:0
+
+	 [[{{node G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal}}]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "run_training.py", line 588, in <module>
+    main()
+  File "run_training.py", line 583, in main
+    run(**vars(args))
+  File "run_training.py", line 512, in run
+    dnnlib.submit_run(**kwargs)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/submission/submit.py", line 343, in submit_run
+    return farm.submit(submit_config, host_run_dir)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/submission/internal/local.py", line 22, in submit
+    return run_wrapper(submit_config)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/submission/submit.py", line 280, in run_wrapper
+    run_func_obj(**submit_config.run_func_kwargs)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/training/training_loop_3d.py", line 165, in training_loop
+    G = tflib.Network('G', num_channels=training_set.shape[0], resolution=min_res, label_size=training_set.label_size, **G_args)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/network.py", line 99, in __init__
+    self._init_graph()
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/network.py", line 156, in _init_graph
+    out_expr = self._build_func(*self.input_templates, **build_kwargs)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/training/networks3d_stylegan2.py", line 195, in G_main
+    components.synthesis = tflib.Network('G_synthesis', func_name=globals()[synthesis_func], **kwargs)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/network.py", line 100, in __init__
+    self.reset_own_vars()
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/network.py", line 191, in reset_own_vars
+    tfutil.run([var.initializer for var in self.own_vars.values()])
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/tfutil.py", line 48, in run
+    return tf.compat.v1.get_default_session().run(*args, **kwargs) 
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/client/session.py", line 967, in run
+    result = self._run(None, fetches, feed_dict, options_ptr,
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/client/session.py", line 1190, in _run
+    results = self._do_run(handle, final_targets, final_fetches,
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/client/session.py", line 1368, in _do_run
+    return self._do_call(_run_fn, feeds, fetches, targets, options,
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/client/session.py", line 1394, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: Cannot assign a device for operation G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal: Could not satisfy explicit device specification '' because the node node G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal (defined at /n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/training/networks3d_stylegan2.py:372) placed on device Device assignments active during op 'G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal' creation:
+  with tf.device(None): </n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variables.py:1796>
+  with tf.device(/gpu:0): </n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/training/training_loop_3d.py:162>  was colocated with a group of nodes that required incompatible device '/device:GPU:0'. All available devices [/job:localhost/replica:0/task:0/device:CPU:0]. 
+Colocation Debug Info:
+Colocation group had the following types and supported devices: 
+Root Member(assigned_device_name_index_=-1 requested_device_name_='/device:GPU:0' assigned_device_name_='' resource_device_name_='/device:GPU:0' supported_device_types_=[CPU] possible_devices_=[]
+Assign: CPU 
+Mul: CPU 
+Const: CPU 
+VariableV2: CPU 
+Add: CPU 
+RandomStandardNormal: CPU 
+
+Colocation members, user-requested devices, and framework assigned devices, if any:
+  G_synthesis/noise0/Initializer/random_normal/shape (Const) 
+  G_synthesis/noise0/Initializer/random_normal/mean (Const) 
+  G_synthesis/noise0/Initializer/random_normal/stddev (Const) 
+  G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal (RandomStandardNormal) 
+  G_synthesis/noise0/Initializer/random_normal/mul (Mul) 
+  G_synthesis/noise0/Initializer/random_normal (Add) 
+  G_synthesis/noise0 (VariableV2) /device:GPU:0
+  G_synthesis/noise0/Assign (Assign) /device:GPU:0
+
+	 [[node G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal (defined at /n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/training/networks3d_stylegan2.py:372) ]]Additional information about colocations:No node-device colocations were active during op 'G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal' creation.
+Device assignments active during op 'G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal' creation:
+  with tf.device(None): </n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variables.py:1796>
+  with tf.device(/gpu:0): </n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/training/training_loop_3d.py:162>
+
+Original stack trace for 'G_synthesis/noise0/Initializer/random_normal/RandomStandardNormal':
+  File "run_training.py", line 588, in <module>
+    main()
+  File "run_training.py", line 583, in main
+    run(**vars(args))
+  File "run_training.py", line 512, in run
+    dnnlib.submit_run(**kwargs)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/submission/submit.py", line 343, in submit_run
+    return farm.submit(submit_config, host_run_dir)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/submission/internal/local.py", line 22, in submit
+    return run_wrapper(submit_config)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/submission/submit.py", line 280, in run_wrapper
+    run_func_obj(**submit_config.run_func_kwargs)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/training/training_loop_3d.py", line 165, in training_loop
+    G = tflib.Network('G', num_channels=training_set.shape[0], resolution=min_res, label_size=training_set.label_size, **G_args)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/network.py", line 99, in __init__
+    self._init_graph()
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/network.py", line 156, in _init_graph
+    out_expr = self._build_func(*self.input_templates, **build_kwargs)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/training/networks3d_stylegan2.py", line 195, in G_main
+    components.synthesis = tflib.Network('G_synthesis', func_name=globals()[synthesis_func], **kwargs)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/network.py", line 99, in __init__
+    self._init_graph()
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/dnnlib/tflib/network.py", line 156, in _init_graph
+    out_expr = self._build_func(*self.input_templates, **build_kwargs)
+  File "/n/holylfs05/LABS/pfister_lab/Lab/coxfs01/pfister_lab2/Lab/scajas/3DStyleGAN/training/networks3d_stylegan2.py", line 372, in G_synthesis_stylegan2_3d_curated_real
+    noise_inputs.append(tf.get_variable('noise%d' % layer_idx, shape=shape, initializer=tf.initializers.random_normal(), trainable=False))
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variable_scope.py", line 1577, in get_variable
+    return get_variable_scope().get_variable(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variable_scope.py", line 1320, in get_variable
+    return var_store.get_variable(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variable_scope.py", line 576, in get_variable
+    return _true_getter(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variable_scope.py", line 529, in _true_getter
+    return self._get_single_variable(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variable_scope.py", line 950, in _get_single_variable
+    v = variables.VariableV1(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variables.py", line 260, in __call__
+    return cls._variable_v1_call(*args, **kwargs)
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variables.py", line 206, in _variable_v1_call
+    return previous_getter(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variables.py", line 199, in <lambda>
+    previous_getter = lambda **kwargs: default_variable_creator(None, **kwargs)
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variable_scope.py", line 2620, in default_variable_creator
+    return variables.RefVariable(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variables.py", line 264, in __call__
+    return super(VariableMetaclass, cls).__call__(*args, **kwargs)
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variables.py", line 1656, in __init__
+    self._init_from_args(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/variables.py", line 1797, in _init_from_args
+    initial_value = initial_value()
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/init_ops.py", line 308, in __call__
+    return random_ops.random_normal(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/util/dispatch.py", line 201, in wrapper
+    return target(*args, **kwargs)
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/random_ops.py", line 94, in random_normal
+    rnd = gen_random_ops.random_standard_normal(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/ops/gen_random_ops.py", line 653, in random_standard_normal
+    _, _, _op, _outputs = _op_def_library._apply_op_helper(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/framework/op_def_library.py", line 748, in _apply_op_helper
+    op = g._create_op_internal(op_type_name, inputs, dtypes=None,
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/framework/ops.py", line 3528, in _create_op_internal
+    ret = Operation(
+  File "/n/home09/scajasordonez/anaconda3/envs/3dgan_tf2/lib/python3.8/site-packages/tensorflow/python/framework/ops.py", line 1990, in __init__
+    self._traceback = tf_stack.extract_stack()
+
