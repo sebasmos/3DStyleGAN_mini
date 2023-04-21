@@ -10,3 +10,6 @@ data/
 *.tfrecord
 **/*.tif
 **/*.tfrecord
+**/.ipynb_checkpoints/
+.ipynb_checkpoints/
+
