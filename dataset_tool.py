@@ -7,6 +7,7 @@
 # license agreement from NVIDIA CORPORATION is strictly prohibited.
 
 """Tool for creating multi-resolution TFRecords datasets."""
+import imageio
 import cv2
 import numpy as np
 
@@ -627,26 +628,10 @@ def create_from_images3d(tfrecord_dir, image_dir, shuffle, base_size):
         img = np.load( image_filenames[ 0 ] )
         img = img[ 'vol_data' ]
     else:
-        img=imageio.volread(image_filenames[0])
-
-        # Reshape the numpy array to 100 separate 1024x1024 arrays
-        original_np_reshaped = np.reshape(img, (100, 1024, 1024))
-        # Create an empty numpy array of size 160x192x224x3 for resized images
-        resized_np = np.zeros((160, 192, 224, 3), dtype=np.uint8)
-
-        # Resize each image in the original_np_reshaped array to 224x192 using cv2.resizes
-        for i in range(100):
-             resized_np[i] = cv2.resize(original_np_reshaped[i], (224, 192))[..., np.newaxis]
-        #import pdb
-        #pdb.set_trace()
-        # Reshape the resized_np array to a single numpy array of size 160x192x224x3
-        img = np.reshape(resized_np, (160, 192, 224, 3))
-        img = img[..., 0]
-        # Save the final numpy array to a file
-        print("(1)reshaped: ", img.shape)
-
-
-
+        #----- #ADDED#--------#
+        img= imageio.volread(image_filenames[0])
+        #----- #ADDED#--------#
+        
     resolution = img.shape[ 0 ] / base_size[ 0 ] * 4
 
     channels = img.shape[3] if img.ndim == 4 else 1
@@ -671,23 +656,10 @@ def create_from_images3d(tfrecord_dir, image_dir, shuffle, base_size):
                 img = np.load( image_filenames[ 0 ] )
                 img = img[ 'vol_data' ]
             else:
-                img=imageio.volread(image_filenames[0])
-                # Reshape the numpy array to 100 separate 1024x1024 arrays
-                original_np_reshaped = np.reshape(img, (100, 1024, 1024))
-                # Create an empty numpy array of size 160x192x224x3 for resized images
-                resized_np = np.zeros((160, 192, 224, 3), dtype=np.uint8)
-
-                # Resize each image in the original_np_reshaped array to 224x192 using cv2.resizes
-                for i in range(100):
-                     resized_np[i] = cv2.resize(original_np_reshaped[i], (224, 192))[..., np.newaxis]
-                #import pdb
-                #pdb.set_trace()
-                # Reshape the resized_np array to a single numpy array of size 160x192x224x3
-                img = np.reshape(resized_np, (160, 192, 224, 3))
-                img = img[..., 0]
+                img= imageio.volread(image_filenames[0])
                 # Save the final numpy array to a file
                 print("(1)reshaped: ", img.shape)
-
+                #"""
 
             # img = np.asarray(PIL.Image.open(image_filenames[order[idx]]))
             if channels == 1:
